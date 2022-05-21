@@ -3,7 +3,7 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float recoil = 0.25f;
+    private float recoil = 0.30f;
     private float maxRecoil_x = -20f;
     private float maxRecoil_y = 20f;
     private float recoilSpeed = 4f;
@@ -32,14 +32,20 @@ public class SwordAttack : MonoBehaviour
         }
         else
         {
-            recoil = 0f;
+            recoil = 0;
             // Dampen towards the target rotation
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotation, Time.deltaTime * recoilSpeed / 2);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotation, Time.deltaTime * recoilSpeed);
             if (transform.localRotation == originRotation)
             {
-                recoil = 0.25f;
+                recoil = 0.30f;
             }
         }
+    }
+    public bool isAttack()
+    {
+        Debug.Log(Input.GetKey(KeyCode.Mouse0));
+        Debug.Log(recoil);
+        return (Input.GetKey(KeyCode.Mouse0) && recoil > 0f && recoil != 0.30f);
     }
     // Update is called once per frame
     void Update()
@@ -51,10 +57,10 @@ public class SwordAttack : MonoBehaviour
         }
         else
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotation, Time.deltaTime * recoilSpeed / 2);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotation, Time.deltaTime * recoilSpeed);
             if (transform.localRotation == originRotation)
             {
-                recoil = 0.25f;
+                recoil = 0.30f;
             }
         }
     }
