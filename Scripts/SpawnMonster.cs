@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SpawnMonster : MonoBehaviour
@@ -6,6 +7,8 @@ public class SpawnMonster : MonoBehaviour
     public GameObject player;
     public ObjectsAttributes playersAttributes;
     public GameObject enermy;
+
+    private List<GameObject> enermyCloneList = new List<GameObject>();
     float spawnTime = 3f;
     float lastTimeSpawn = 0f;
     float startSceneTime;
@@ -30,11 +33,16 @@ public class SpawnMonster : MonoBehaviour
             }
             else if (!bossSpawned)
             {
+                foreach (GameObject enermyClone in enermyCloneList)
+                {
+                    Destroy(enermyClone);
+                }
                 Debug.Log("Something went wrong?");
                 Debug.Log("Something went wrong?");
                 Debug.Log("Something went wrong?");
                 bossSpawned = true;
                 Invoke("SpawnBoss", 5f);
+
             }
         }
     }
@@ -52,8 +60,9 @@ public class SpawnMonster : MonoBehaviour
 
         int id = Random.Range(0, 2);
         GameObject monster = enermy.transform.GetChild(id).gameObject;
-
-        Instantiate(monster, player.transform.position + new Vector3(difcorx, 10, difcorz), player.transform.rotation);
+        //add to enermy list
+        enermyCloneList.Add(Instantiate(monster, player.transform.position + new Vector3(difcorx, 10, difcorz),
+                                        player.transform.rotation) as GameObject);
     }
 
     void SpawnBoss()
