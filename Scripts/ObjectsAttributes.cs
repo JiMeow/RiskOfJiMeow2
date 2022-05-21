@@ -10,42 +10,81 @@ public class ObjectsAttributes : MonoBehaviour
     public float Exp;
     public float Gold;
     private int killcount;
+    private int level = 1;
+    private float MaxExp;
 
     [Header("Health Bar")]
     public Slider healthBar;
-    public Gradient gradient;
-    public Image fill;
+    public Gradient healthgradient;
+    public Image healthfill;
 
+    [Header("Exp Bar")]
+    public Slider expBar;
+    public Gradient expGradient;
+    public Image expFill;
 
     void Start()
     {
-        fill.color = gradient.Evaluate(1f);
+        healthfill.color = healthgradient.Evaluate(1f);
+        expFill.color = expGradient.Evaluate(0f);
         Hp = MaxHp;
+        MaxExp = Mathf.Pow(2, level + 2);
     }
 
     // Attack Handle
-    public void attack(GameObject enermy)
+    public void Attack(GameObject enermy)
     {
         ObjectsAttributes e = enermy.GetComponent<ObjectsAttributes>();
-        killcount += e.GetComponent<ObjectsAttributes>().wasAttacked(e.Atk);
+        if (e.WasAttacked(Atk))
+        {
+            killcount += 1;
+            Exp += e.Exp;
+            Gold += e.Gold;
+            if (Exp >= MaxExp)
+            {
+                LevelUp();
+            }
+            SetHealthBar();
+            SetExpBar();
+        }
+
     }
-    public int wasAttacked(float damage)
+    public bool WasAttacked(float damage)
     {
         Hp -= damage * (100 - Def) / 100;
         SetHealthBar();
         if (Hp <= 0)
         {
             Destroy(gameObject);
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
+
+    private void LevelUp()
+    {
+        level += 1;
+        Exp -= MaxExp;
+        Hp = (Hp / MaxHp) * MaxHp + 10;
+        MaxHp += 10;
+        Atk += 1;
+        Def += 1;
+        MaxExp = Mathf.Pow(2, level + 2);
+    }
+
 
     // Health Bar Handle
     private void SetHealthBar()
     {
         healthBar.value = Hp / MaxHp;
-        fill.color = gradient.Evaluate(healthBar.normalizedValue);
+        healthfill.color = healthgradient.Evaluate(healthBar.normalizedValue);
+    }
+
+    // Exp Bar Handle
+    private void SetExpBar()
+    {
+        expBar.value = Exp / MaxExp;
+        expFill.color = expGradient.Evaluate(expBar.normalizedValue);
     }
 
     // Getter and Setter

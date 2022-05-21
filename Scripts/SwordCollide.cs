@@ -10,7 +10,7 @@ public class SwordCollide : MonoBehaviour
         {
             if (swordAttack.isAttack())
             {
-                player.GetComponent<ObjectsAttributes>().attack(other.gameObject);
+                player.GetComponent<ObjectsAttributes>().Attack(other.gameObject);
             }
         }
     }

@@ -8,7 +8,7 @@ public class PlayerCollide : MonoBehaviour
         if (other.gameObject.tag == "Enermy")
         {
             GameObject enermy = other.gameObject;
-            enermy.GetComponent<ObjectsAttributes>().attack(gameObject);
+            enermy.GetComponent<ObjectsAttributes>().Attack(gameObject);
         }
     }
 }
