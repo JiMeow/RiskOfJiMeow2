@@ -8,6 +8,8 @@ public class SwordAttack : MonoBehaviour
     private float maxRecoil_y = 20f;
     private float recoilSpeed = 4f;
 
+    private float lastAttackTime;
+    private float attackDelay = 0.5f;
     Quaternion originRotation;
     void Start()
     {
@@ -43,7 +45,15 @@ public class SwordAttack : MonoBehaviour
     }
     public bool isAttack()
     {
-        return (Input.GetKey(KeyCode.Mouse0) && recoil > 0f && recoil != 0.30f);
+        if (Input.GetKey(KeyCode.Mouse0) && recoil > 0f && recoil != 0.30f)
+        {
+            if (Time.time - lastAttackTime > attackDelay)
+            {
+                lastAttackTime = Time.time;
+                return true;
+            }
+        }
+        return false;
     }
     // Update is called once per frame
     void Update()
