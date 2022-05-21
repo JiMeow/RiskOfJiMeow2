@@ -43,8 +43,6 @@ public class SwordAttack : MonoBehaviour
     }
     public bool isAttack()
     {
-        Debug.Log(Input.GetKey(KeyCode.Mouse0));
-        Debug.Log(recoil);
         return (Input.GetKey(KeyCode.Mouse0) && recoil > 0f && recoil != 0.30f);
     }
     // Update is called once per frame

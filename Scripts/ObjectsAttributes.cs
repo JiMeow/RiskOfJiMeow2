@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectArti : MonoBehaviour
+public class ObjectsAttributes : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int Hp;
+    public int Atk;
+    public int Def;
+    public int Exp;
+    public int Gold;
 
-    // Update is called once per frame
-    void Update()
+    public void attack(GameObject enermy)
     {
-        
+        ObjectsAttributes e = enermy.GetComponent<ObjectsAttributes>();
+        e.GetComponent<ObjectsAttributes>().wasAttacked(e.Atk);
+    }
+    public void wasAttacked(int damage)
+    {
+        Hp -= damage * (100 - Def) / 100;
+        Debug.Log(Hp);
+        if (Hp <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
