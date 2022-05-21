@@ -9,34 +9,48 @@ public class ObjectsAttributes : MonoBehaviour
     public float Def;
     public float Exp;
     public float Gold;
+    private int killcount;
 
     [Header("Health Bar")]
     public Slider healthBar;
     public Gradient gradient;
     public Image fill;
 
+
     void Start()
     {
         fill.color = gradient.Evaluate(1f);
         Hp = MaxHp;
     }
+
+    // Attack Handle
     public void attack(GameObject enermy)
     {
         ObjectsAttributes e = enermy.GetComponent<ObjectsAttributes>();
-        e.GetComponent<ObjectsAttributes>().wasAttacked(e.Atk);
+        killcount += e.GetComponent<ObjectsAttributes>().wasAttacked(e.Atk);
     }
-    public void wasAttacked(float damage)
+    public int wasAttacked(float damage)
     {
         Hp -= damage * (100 - Def) / 100;
         SetHealthBar();
         if (Hp <= 0)
         {
             Destroy(gameObject);
+            return 1;
         }
+        return 0;
     }
+
+    // Health Bar Handle
     private void SetHealthBar()
     {
         healthBar.value = Hp / MaxHp;
         fill.color = gradient.Evaluate(healthBar.normalizedValue);
+    }
+
+    // Getter and Setter
+    public int GetKillCount()
+    {
+        return killcount;
     }
 }
