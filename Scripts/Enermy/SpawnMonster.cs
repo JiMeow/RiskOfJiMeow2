@@ -29,7 +29,7 @@ public class SpawnMonster : MonoBehaviour
         {
             //Debug.Log(Time.time);
             lastTimeSpawn = Time.time;
-            if (playersAttributes.GetKillCount() <= 1000 * (sceneIndex + 1))
+            if (playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1))
             {
                 Spawn();
             }
