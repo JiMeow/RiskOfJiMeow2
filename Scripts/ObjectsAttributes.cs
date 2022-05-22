@@ -112,6 +112,11 @@ public class ObjectsAttributes : MonoBehaviour
         return killcount;
     }
 
+    public void AddKillCount()
+    {
+        killcount += 1;
+    }
+
     public float GetHp()
     {
         return Hp;

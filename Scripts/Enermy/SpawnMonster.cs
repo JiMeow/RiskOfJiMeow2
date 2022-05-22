@@ -29,14 +29,19 @@ public class SpawnMonster : MonoBehaviour
         {
             //Debug.Log(Time.time);
             lastTimeSpawn = Time.time;
-            if (playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1))
+            if (playersAttributes.GetKillCount() <= 1000 * (sceneIndex + 1))
             {
                 Spawn();
             }
-            else if (bossSpawned && playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1) + 10)
+            else if (bossSpawned && playersAttributes.GetKillCount() <= 1000 * (sceneIndex + 1))
             {
-                spawnTime = 1;
-                addSpawnTime = 0;
+                if (playersAttributes.GetKillCount() % 20 == 0)
+                {
+                    playersAttributes.AddKillCount();
+                    bossSpawned = false;
+                    SpawnBoss();
+                }
+                addSpawnTime = -0.5f;
                 Spawn();
             }
             else
