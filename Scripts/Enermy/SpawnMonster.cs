@@ -27,13 +27,13 @@ public class SpawnMonster : MonoBehaviour
         if (Time.time - startSceneTime - lastTimeSpawn > spawnTime)
         {
             lastTimeSpawn = Time.time;
-            if (playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1))
+            if (playersAttributes.GetKillCount() <= 20 * (sceneIndex + 1))
             {
                 Spawn();
             }
             else
             {
-                spawnTime += (Time.time - startSceneTime) / 25;
+                spawnTime += (Time.time - startSceneTime) / 10;
             }
         }
     }
