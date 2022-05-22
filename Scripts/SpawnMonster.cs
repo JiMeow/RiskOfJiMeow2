@@ -31,18 +31,9 @@ public class SpawnMonster : MonoBehaviour
             {
                 Spawn();
             }
-            else if (!bossSpawned)
+            else
             {
-                foreach (GameObject enermyClone in enermyCloneList)
-                {
-                    Destroy(enermyClone);
-                }
-                Debug.Log("Something went wrong?");
-                Debug.Log("Something went wrong?");
-                Debug.Log("Something went wrong?");
-                bossSpawned = true;
-                Invoke("SpawnBoss", 5f);
-
+                spawnTime += (Time.time - startSceneTime) / 25;
             }
         }
     }
@@ -65,7 +56,22 @@ public class SpawnMonster : MonoBehaviour
                                         player.transform.rotation) as GameObject);
     }
 
-    void SpawnBoss()
+    public void SpawnBoss()
+    {
+        if (!bossSpawned)
+        {
+            foreach (GameObject enermyClone in enermyCloneList)
+            {
+                Destroy(enermyClone);
+            }
+            Debug.Log("Something went wrong?");
+            Debug.Log("Something went wrong?");
+            Debug.Log("Something went wrong?");
+            bossSpawned = true;
+            Invoke("SpawnBoss2", 4f);
+        }
+    }
+    private void SpawnBoss2()
     {
         GameObject monster = enermy.transform.GetChild(2).gameObject;
         monster = Instantiate(monster, player.transform.position + new Vector3(0, 10, 0), player.transform.rotation);

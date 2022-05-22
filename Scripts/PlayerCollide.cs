@@ -11,4 +11,20 @@ public class PlayerCollide : MonoBehaviour
             enermy.GetComponent<ObjectsAttributes>().Attack(gameObject);
         }
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Ruin")
+        {
+            GameObject Ruin = other.gameObject;
+            gameObject.GetComponent<PlayerInteract>().Interact(Ruin);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ruin")
+        {
+            GameObject Ruin = other.gameObject;
+            gameObject.GetComponent<PlayerInteract>().NotInteract(Ruin);
+        }
+    }
 }

@@ -65,9 +65,9 @@ public class ObjectsAttributes : MonoBehaviour
     {
         level += 1;
         Exp -= MaxExp;
-        Hp = (Hp / MaxHp) * MaxHp + 10;
-        MaxHp += 10;
-        Atk += 1;
+        MaxHp = MaxHp * 130 / 100;
+        Hp = MaxHp;
+        Atk += 0.2f;
         Def += 1;
         MaxExp = Mathf.Pow(2, level + 2);
     }
