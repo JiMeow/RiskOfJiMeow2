@@ -27,7 +27,7 @@ public class SpawnMonster : MonoBehaviour
     {
         if (Time.time - startSceneTime - lastTimeSpawn > spawnTime + addSpawnTime)
         {
-            Debug.Log(Time.time);
+            //Debug.Log(Time.time);
             lastTimeSpawn = Time.time;
             if (playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1))
             {
@@ -35,6 +35,7 @@ public class SpawnMonster : MonoBehaviour
             }
             else if (bossSpawned && playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1) + 10)
             {
+                spawnTime = 1;
                 addSpawnTime = 0;
                 Spawn();
             }

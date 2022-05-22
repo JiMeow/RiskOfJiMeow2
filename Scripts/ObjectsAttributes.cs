@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class ObjectsAttributes : MonoBehaviour
 {
     [Header("Stat")]
@@ -49,13 +50,31 @@ public class ObjectsAttributes : MonoBehaviour
         }
 
     }
+    public GameObject playerWasDamage;
+    private void playerWasDamageSetDeactive()
+    {
+        playerWasDamage.SetActive(false);
+    }
     public bool WasAttacked(float damage)
     {
+        if (gameObject.tag == "Player")
+        {
+            playerWasDamage.SetActive(true);
+            Invoke("playerWasDamageSetDeactive", 0.5f);
+        }
         Hp -= damage * (100 - Def) / 100;
         SetHealthBar();
         if (Hp <= 0)
         {
-            Destroy(gameObject);
+            Debug.Log(gameObject.tag);
+            if (gameObject.tag == "Player")
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
             return true;
         }
         return false;
