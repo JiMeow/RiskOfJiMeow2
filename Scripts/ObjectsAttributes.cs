@@ -92,4 +92,19 @@ public class ObjectsAttributes : MonoBehaviour
     {
         return killcount;
     }
+
+    public float GetHp()
+    {
+        return Hp;
+    }
+
+    public float GetMaxHp()
+    {
+        return MaxHp;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
 }

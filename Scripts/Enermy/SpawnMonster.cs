@@ -10,6 +10,7 @@ public class SpawnMonster : MonoBehaviour
 
     private List<GameObject> enermyCloneList = new List<GameObject>();
     float spawnTime = 3f;
+    float addSpawnTime = 0f;
     float lastTimeSpawn = 0f;
     float startSceneTime;
     int sceneIndex;
@@ -24,16 +25,23 @@ public class SpawnMonster : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - startSceneTime - lastTimeSpawn > spawnTime)
+        if (Time.time - startSceneTime - lastTimeSpawn > spawnTime + addSpawnTime)
         {
+            Debug.Log(Time.time);
             lastTimeSpawn = Time.time;
-            if (playersAttributes.GetKillCount() <= 20 * (sceneIndex + 1))
+            if (playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1))
             {
+                Spawn();
+            }
+            else if (bossSpawned && playersAttributes.GetKillCount() <= 15 * (sceneIndex + 1) + 10)
+            {
+                addSpawnTime = 0;
                 Spawn();
             }
             else
             {
-                spawnTime += (Time.time - startSceneTime) / 10;
+                addSpawnTime = (Time.time - startSceneTime) / 10;
+                Spawn();
             }
         }
     }
